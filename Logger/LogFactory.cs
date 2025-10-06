@@ -15,8 +15,6 @@ public class LogFactory
             ClassName = className
         };
          
-        
-    
     }
 
     public void ConfigureFileLogger(string filePath)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
 using System.Collections.Generic;
 
@@ -7,17 +8,16 @@ namespace Logger.Tests;
 [TestClass]
 public class BaseLoggerMixinsTests
 {
-    // [TestMethod]
-    // [ExpectedException(typeof(ArgumentNullException))]
-    // public void Error_WithNullLogger_ThrowsException()
-    // {
-    //     // Arrange
+    [TestMethod]
+    //[ExpectedException(typeof(ArgumentNullException))]
+    public void Error_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+        BaseLogger? logger = null;
 
-    //     // Act
-    //     //BaseLoggerMixins.Error(null, "");
-
-    //     // Assert
-    // }
+        //Act & Assert
+        Assert.ThrowsExactly<ArgumentNullException>(() => BaseLoggerMixins.Error(logger, "This should throw null exception"));
+    }
 
     [TestMethod]
     public void Error_WithData_LogsMessage()
@@ -27,12 +27,13 @@ public class BaseLoggerMixinsTests
 
         // Act
         logger.Error("Message {0}", 42);
-        
+
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
     }
+    
 
 }
 
@@ -45,3 +46,6 @@ public class TestLogger : BaseLogger
         LoggedMessages.Add((logLevel, message));
     }
 }
+
+
+
