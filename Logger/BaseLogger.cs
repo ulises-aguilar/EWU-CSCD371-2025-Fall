@@ -4,6 +4,6 @@ public abstract class BaseLogger
 {
     public abstract void Log(LogLevel logLevel, string message);
 
-    public string? clasName { get; set; }
+    public string? ClassName { get; set; }
 }
 
