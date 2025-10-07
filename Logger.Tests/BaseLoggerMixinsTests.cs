@@ -32,6 +32,36 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
     }
+
+    [TestMethod]
+    public void Warning_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+        BaseLogger? logger = null;
+
+        //Act & Assert
+        Assert.ThrowsExactly<ArgumentNullException>(() => BaseLoggerMixins.Warning(logger, "This should throw null exception"));
+    }
+
+    [TestMethod]
+    public void Information_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+        BaseLogger? logger = null;
+
+        //Act & Assert
+        Assert.ThrowsExactly<ArgumentNullException>(() => BaseLoggerMixins.Information(logger, "This should throw null exception"));
+    }
+    
+    [TestMethod]
+    public void Debug_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+        BaseLogger? logger = null;
+
+        //Act & Assert
+        Assert.ThrowsExactly<ArgumentNullException>(() => BaseLoggerMixins.Debug(logger, "This should throw null exception"));
+    }
     
 
 }
