@@ -66,7 +66,7 @@ public class FileLoggerTests
         string fileInfo = File.ReadAllText(filePath);
 
 
-        int colonIndex = fileInfo.IndexOf(": ");
+        int colonIndex = fileInfo.IndexOf(": ", StringComparison.Ordinal);
         Assert.IsTrue(colonIndex > 0, "No colon found after timestamp.");
 
         string timestamp = fileInfo.Substring(0, colonIndex);
