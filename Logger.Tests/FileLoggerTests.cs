@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,11 +47,38 @@ public class FileLoggerTests
         // Cleanup
         File.Delete(filePath);
 
-
-
     }
 
+    [TestMethod]
+    public void Log_FormattingDateTime_ExpectedOutput()
+    {
+        // Arrange
+        string filePath = Path.GetTempFileName();
+        var logger = new FileLogger(filePath)
+        {
+            ClassName = nameof(FileLoggerTests)
+        };
+
+        // Act
+        logger.Log(LogLevel.Information, "Formatted message");
+
+        // Assert
+        string fileInfo = File.ReadAllText(filePath);
+
+
+        int colonIndex = fileInfo.IndexOf(": ");
+        Assert.IsTrue(colonIndex > 0, "No colon found after timestamp.");
+
+        string timestamp = fileInfo.Substring(0, colonIndex);
+
+        Assert.IsTrue(DateTime.TryParse(timestamp, out _), "Timestamp format is incorrect.");
+
+        //Cleanup
+        File.Delete(filePath);
+    }
+
+    
+
+
 }
-
-
 

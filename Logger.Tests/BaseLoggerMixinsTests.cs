@@ -9,7 +9,6 @@ namespace Logger.Tests;
 public class BaseLoggerMixinsTests
 {
     [TestMethod]
-    //[ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
         // Arrange
