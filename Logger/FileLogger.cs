@@ -1,5 +1,5 @@
 using System;
-using  System.IO;
+using System.IO;
 
 namespace Logger;
 
@@ -18,4 +18,3 @@ public class FileLogger : BaseLogger
         File.AppendAllText(_filePath, logMessage + "\n");
     }
 }
-

@@ -27,7 +27,6 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-
     public void Log_AppendsMessage_ToNewLine()
     {
         // Arrange
@@ -76,9 +75,5 @@ public class FileLoggerTests
         //Cleanup
         File.Delete(filePath);
     }
-
-    
-
-
 }
 
