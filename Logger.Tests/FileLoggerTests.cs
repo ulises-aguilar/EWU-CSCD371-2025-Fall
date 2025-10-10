@@ -15,15 +15,20 @@ public class FileLoggerTests
         string filePath = Path.GetTempFileName();
         var logger = new FileLogger(filePath);
 
-        // Act
-        logger.Log(LogLevel.Warning, "Warning message");
+        try
+        {
+            // Act
+            logger.Log(LogLevel.Warning, "Warning message");
 
-        // Assert
-        string fileInfo = File.ReadAllText(filePath);
-        Assert.IsTrue(fileInfo.Contains("Warning message"));
-
-        // Cleanup
-        File.Delete(filePath);
+            // Assert
+            string fileInfo = File.ReadAllText(filePath);
+            Assert.IsTrue(fileInfo.Contains("Warning message"));
+        }
+        finally
+        {
+            // Cleanup
+            File.Delete(filePath);
+        }
     }
 
     [TestMethod]
@@ -33,19 +38,23 @@ public class FileLoggerTests
         string filePath = Path.GetTempFileName();
         var logger = new FileLogger(filePath);
 
-        // Act
-        logger.Log(LogLevel.Error, "First Line Message");
-        logger.Log(LogLevel.Error, "Second Line Message");
+        try
+        {
+            // Act
+            logger.Log(LogLevel.Error, "First Line Message");
+            logger.Log(LogLevel.Error, "Second Line Message");
 
-        // Assert
-        string[] lines = File.ReadAllLines(filePath);
-        Assert.AreEqual(lines.Length, 2);
-        Assert.IsTrue(lines[0].Contains("First Line Message"));
-        Assert.IsTrue(lines[1].Contains("Second Line Message"));
-
-        // Cleanup
-        File.Delete(filePath);
-
+            // Assert
+            string[] lines = File.ReadAllLines(filePath);
+            Assert.AreEqual(lines.Length, 2);
+            Assert.IsTrue(lines[0].Contains("First Line Message"));
+            Assert.IsTrue(lines[1].Contains("Second Line Message"));
+        }
+        finally
+        {
+            // Cleanup
+            File.Delete(filePath);
+        }
     }
 
     [TestMethod]
@@ -58,22 +67,24 @@ public class FileLoggerTests
             ClassName = nameof(FileLoggerTests)
         };
 
-        // Act
-        logger.Log(LogLevel.Information, "Formatted message");
+        try
+        {
+            // Act
+            logger.Log(LogLevel.Information, "Formatted message");
 
-        // Assert
-        string fileInfo = File.ReadAllText(filePath);
+            // Assert
+            string fileInfo = File.ReadAllText(filePath);
+            int colonIndex = fileInfo.IndexOf(": ", StringComparison.Ordinal);
+            Assert.IsTrue(colonIndex > 0, "No colon found after timestamp.");
 
-
-        int colonIndex = fileInfo.IndexOf(": ", StringComparison.Ordinal);
-        Assert.IsTrue(colonIndex > 0, "No colon found after timestamp.");
-
-        string timestamp = fileInfo.Substring(0, colonIndex);
-
-        Assert.IsTrue(DateTime.TryParse(timestamp, out _), "Timestamp format is incorrect.");
-
-        //Cleanup
-        File.Delete(filePath);
+            string timestamp = fileInfo.Substring(0, colonIndex);
+            Assert.IsTrue(DateTime.TryParse(timestamp, out _), "Timestamp format is incorrect.");
+        }
+        finally
+        {
+            //Cleanup
+            File.Delete(filePath);
+        }
     }
 }
 
