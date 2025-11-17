@@ -24,13 +24,38 @@ public class SampleData : ISampleData
     }
 
     // 4.
-    public IEnumerable<IPerson> People => throw new NotImplementedException();
+    public IEnumerable<IPerson> People
+    {
+        get
+        {
+            return CsvRows
+                .Select(row => row.Split(','))
+                .OrderBy(line => line[6])
+                .ThenBy(line => line[5])
+                .ThenBy(line => line[7])
+                .Select(line => new Person(line[1], line[2],
+                                new Address(line[4], line[5], line[6], line[7]),
+                                line[3]));
+        }
+    }
 
     // 5.
-    public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-        Predicate<string> filter) => throw new NotImplementedException();
+    public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
+    {
+        return People
+            .Where(person => filter(person.EmailAddress))
+            .Select(person => (person.FirstName, person.LastName));
+    }
 
     // 6.
-    public string GetAggregateListOfStatesGivenPeopleCollection(
-        IEnumerable<IPerson> people) => throw new NotImplementedException();
+    public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+    {
+        IEnumerable<string> states = people
+                                    .Select(person => person.Address.State)
+                                    .Distinct()
+                                    .OrderBy(state => state);
+
+        return states.Aggregate(((concat, str) => $"{concat}, {str}"));
+    }
+    
 }
