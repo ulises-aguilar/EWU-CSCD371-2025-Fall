@@ -19,7 +19,7 @@ public class SampleDataTests
         var column = firstRow.Split(',');
 
         // Assert
-        Assert.AreEqual<int>(8, column.Count());
+        Assert.HasCount(8, column);
     }
 
     [TestMethod]
@@ -80,7 +80,7 @@ public class SampleDataTests
         var firstPerson = people.First();
 
         // Assert
-        Assert.AreEqual(data.CsvRows.Count(), people.Count());
+        Assert.HasCount(data.CsvRows.Count(), people);
         Assert.IsFalse(string.IsNullOrWhiteSpace(firstPerson.FirstName));
         Assert.IsFalse(string.IsNullOrWhiteSpace(firstPerson.LastName));
         Assert.IsNotNull(firstPerson.Address);
