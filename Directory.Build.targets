@@ -9,4 +9,4 @@
   <Target Name="DirectoryBuild_CopiedSharedItems" AfterTargets="Build">
     <Message Importance="Low" Text="Directory.Build.targets applied." />
   </Target>
-</Project>
+  </Project>
