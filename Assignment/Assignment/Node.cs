@@ -39,7 +39,7 @@ public class Node<T> : IEnumerable<T>
     }
     //This Clear() is not as good as itterative clear because the garbage collector wont collect
     //any of the nodes that point to the node clear is called on. It is also bad practice because
-    //Some node's next can access the node cleared is called on.
+    //Some node's next can access the node cleared is called on
     public void Clear()
     {
         Next = this;
