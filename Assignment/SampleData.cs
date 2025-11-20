@@ -19,7 +19,7 @@ public class SampleData : ISampleData
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
-        IEnumerable<string> states = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
+        string[] states = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
         return string.Join(", ", states);
     }
 

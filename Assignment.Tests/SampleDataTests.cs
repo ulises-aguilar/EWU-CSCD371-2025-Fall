@@ -65,7 +65,7 @@ public class SampleDataTests
         string actual = data.GetAggregateSortedListOfStatesUsingCsvRows();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual<string>(expected, actual);
     }
 
 
@@ -101,8 +101,8 @@ public class SampleDataTests
         var result = data.FilterByEmailAddress(filter).Single();
 
         // Assert
-        Assert.AreEqual("Priscilla", result.FirstName);
-        Assert.AreEqual("Jenyns", result.LastName);
+        Assert.AreEqual<string>("Priscilla", result.FirstName);
+        Assert.AreEqual<string>("Jenyns", result.LastName);
     }
 
     [TestMethod]
@@ -116,6 +116,6 @@ public class SampleDataTests
         string actual = data.GetAggregateListOfStatesGivenPeopleCollection(data.People);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual<string>(expected, actual);
     }
 }
